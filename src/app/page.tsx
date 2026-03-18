@@ -1,29 +1,36 @@
 'use client'
 
-import { useBootStore } from '@/stores/bootStore'
+import { useCallback, useState } from 'react'
+import { useThemeStore } from '@/stores/themeStore'
+import BootScreen from '@/components/boot/BootScreen'
+import type { Theme } from '@/types/theme.types'
 
 /**
  * Entry point do WIRED_OS.
  * Renderiza BootScreen até o boot completar, depois renderiza o Desktop.
- * Os componentes reais serão implementados nos próximos passos.
  */
 export default function Home() {
-  const boot = useBootStore((state) => state.boot)
+  const setTheme = useThemeStore((state) => state.setTheme)
+  const [booted, setBooted] = useState(false)
 
-  if (boot.phase !== 'done') {
-    return (
-      <div className="flex h-screen w-screen items-center justify-center bg-bios-bg font-vt323 text-bios-text">
-        <p className="text-sm">
-          WIRED_OS v1.0 — Boot sequence placeholder
-          <span className="cursor-blink">_</span>
-        </p>
-      </div>
-    )
+  const handleBootComplete = useCallback(
+    (theme: Theme) => {
+      setTheme(theme)
+      setBooted(true)
+    },
+    [setTheme]
+  )
+
+  if (!booted) {
+    return <BootScreen onBootComplete={handleBootComplete} />
   }
 
+  // Desktop placeholder — será substituído pelo componente Desktop real
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-wired-black font-tahoma text-white">
-      <p className="text-sm">Desktop placeholder — boot complete</p>
-    </div>
+    <main className="flex h-screen w-screen items-center justify-center bg-wired-black font-tahoma text-white">
+      <p className="text-sm opacity-60">
+        WIRED_OS Desktop — loading...
+      </p>
+    </main>
   )
 }
