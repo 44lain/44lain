@@ -3,6 +3,7 @@
 import { useCallback, useState } from 'react'
 import { useThemeStore } from '@/stores/themeStore'
 import BootScreen from '@/components/boot/BootScreen'
+import Desktop from '@/components/desktop/Desktop'
 import type { Theme } from '@/types/theme.types'
 
 /**
@@ -25,12 +26,5 @@ export default function Home() {
     return <BootScreen onBootComplete={handleBootComplete} />
   }
 
-  // Desktop placeholder — será substituído pelo componente Desktop real
-  return (
-    <main className="flex h-screen w-screen items-center justify-center bg-wired-black font-tahoma text-white">
-      <p className="text-sm opacity-60">
-        WIRED_OS Desktop — loading...
-      </p>
-    </main>
-  )
+  return <Desktop />
 }

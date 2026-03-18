@@ -6,7 +6,7 @@ import type { Position } from '@/types/window.types'
 interface UseDraggableOptions {
   readonly initialPosition: Position
   readonly onDragEnd: (position: Position) => void
-  readonly enabled?: boolean
+  readonly enabled?: boolean | undefined
 }
 
 /**

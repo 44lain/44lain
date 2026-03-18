@@ -6,9 +6,9 @@ import { MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT } from '@/lib/constants'
 
 interface UseResizableOptions {
   readonly initialSize: Size
-  readonly minSize?: Size
+  readonly minSize?: Size | undefined
   readonly onResizeEnd: (size: Size) => void
-  readonly enabled?: boolean
+  readonly enabled?: boolean | undefined
 }
 
 /**
