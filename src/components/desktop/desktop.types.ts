@@ -10,6 +10,8 @@ export interface DesktopIconConfig {
 export interface DesktopIconProps {
   readonly emoji: string
   readonly label: string
+  readonly selected: boolean
+  readonly onClick: (e: React.MouseEvent) => void
   readonly onDoubleClick: () => void
 }
 
