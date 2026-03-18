@@ -11,6 +11,7 @@ interface TitleBarProps {
   readonly onMinimize: () => void
   readonly onMaximize: () => void
   readonly onPointerDown: (e: React.PointerEvent) => void
+  readonly onDoubleClick: () => void
 }
 
 /**
@@ -25,6 +26,7 @@ export default function TitleBar({
   onMinimize,
   onMaximize,
   onPointerDown,
+  onDoubleClick,
 }: TitleBarProps) {
   const { tokens } = useTheme()
 
@@ -36,6 +38,7 @@ export default function TitleBar({
         opacity: isFocused ? 1 : 0.85,
       }}
       onPointerDown={onPointerDown}
+      onDoubleClick={onDoubleClick}
     >
       {/* Ícone + Título */}
       <div className="flex flex-1 items-center gap-1.5 overflow-hidden">
