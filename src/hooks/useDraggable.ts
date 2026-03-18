@@ -10,9 +10,10 @@ interface UseDraggableOptions {
 }
 
 /**
- * Hook de drag para janelas.
- * Manipula o DOM diretamente durante drag (sem setState no mousemove).
- * Só persiste posição no mouseup via onDragEnd.
+ * Hook de drag para janelas via Pointer Events.
+ * Pointer Events são usados de ponta a ponta — misturar pointerdown com
+ * mouseup faz o preventDefault() bloquear o mouseup, mantendo isDragging=true.
+ * setPointerCapture garante recebimento de eventos mesmo fora da janela.
  */
 export function useDraggable({ initialPosition, onDragEnd, enabled = true }: UseDraggableOptions) {
   const elementRef = useRef<HTMLDivElement>(null)
@@ -20,21 +21,26 @@ export function useDraggable({ initialPosition, onDragEnd, enabled = true }: Use
   const isDragging = useRef(false)
   const dragOffset = useRef<Position>({ x: 0, y: 0 })
 
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent) => {
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
       if (!enabled || !elementRef.current) return
+      if (e.button !== 0) return // apenas botão primário
       isDragging.current = true
+      // Lê posição real do DOM para evitar salto quando posRef está desatualizado
+      const rect = elementRef.current.getBoundingClientRect()
+      posRef.current = { x: rect.left, y: rect.top }
       dragOffset.current = {
-        x: e.clientX - posRef.current.x,
-        y: e.clientY - posRef.current.y,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
       }
-      e.preventDefault()
+      // Captura o pointer: recebe pointermove/pointerup mesmo fora do elemento
+      e.currentTarget.setPointerCapture(e.pointerId)
     },
     [enabled]
   )
 
   useEffect(() => {
-    function handleMouseMove(e: MouseEvent) {
+    function handlePointerMove(e: PointerEvent) {
       if (!isDragging.current || !elementRef.current) return
       const newPos: Position = {
         x: e.clientX - dragOffset.current.x,
@@ -45,19 +51,19 @@ export function useDraggable({ initialPosition, onDragEnd, enabled = true }: Use
       elementRef.current.style.top = `${newPos.y}px`
     }
 
-    function handleMouseUp() {
+    function handlePointerUp() {
       if (!isDragging.current) return
       isDragging.current = false
       onDragEnd(posRef.current)
     }
 
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
+    document.addEventListener('pointermove', handlePointerMove)
+    document.addEventListener('pointerup', handlePointerUp)
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
+      document.removeEventListener('pointermove', handlePointerMove)
+      document.removeEventListener('pointerup', handlePointerUp)
     }
   }, [onDragEnd])
 
-  return { elementRef, handleMouseDown }
+  return { elementRef, handlePointerDown }
 }

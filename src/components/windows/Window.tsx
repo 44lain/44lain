@@ -33,7 +33,7 @@ export default function Window({ windowState, children }: WindowProps) {
 
   const windowRef = useRef<HTMLDivElement | null>(null)
 
-  const { elementRef: dragRef, handleMouseDown: handleDragDown } = useDraggable({
+  const { elementRef: dragRef, handlePointerDown: handleDragPointerDown } = useDraggable({
     initialPosition: position,
     onDragEnd: useCallback((pos) => updatePosition(id, pos), [id, updatePosition]),
     enabled: !isMaximized,
@@ -100,7 +100,8 @@ export default function Window({ windowState, children }: WindowProps) {
         onClose={() => closeWindow(id)}
         onMinimize={() => minimizeWindow(id)}
         onMaximize={() => maximizeWindow(id)}
-        onPointerDown={handleDragDown}
+        onPointerDown={handleDragPointerDown}
+        onDoubleClick={() => maximizeWindow(id)}
       />
 
       <WindowBody>{children}</WindowBody>
