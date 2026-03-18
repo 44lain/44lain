@@ -21,13 +21,13 @@ interface BootOption {
 const BOOT_OPTIONS: BootOption[] = [
   {
     theme: 'dev',
-    label: 'WIRED_OS — Developer Edition',
-    description: 'Full-stack workstation environment',
+    label: 'WIRED_OS — 44lain.exe',
+    description: 'full-stack - cybersec',
   },
   {
     theme: 'music',
-    label: 'WIRED_OS — Music Edition',
-    description: 'Digital audio workspace environment',
+    label: 'WIRED_OS — 44lain',
+    description: 'artist - producer - actor',
   },
 ]
 
