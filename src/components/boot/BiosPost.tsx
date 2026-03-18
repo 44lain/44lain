@@ -12,12 +12,12 @@ import type { BiosPostProps, BiosLine } from './boot.types'
  */
 
 const BIOS_LINES: BiosLine[] = [
-  { text: 'WIRED_OS BIOS v1.0.7', delay: 0, type: 'header' },
-  { text: 'Copyright (C) 2025 WIRED Systems Inc.', delay: 80, type: 'info' },
+  { text: 'WIRED_OS BIOS v4.4', delay: 0, type: 'header' },
+  { text: 'Copyright (C) 2026 44lain.', delay: 80, type: 'info' },
   { text: '', delay: 200, type: 'blank' },
-  { text: 'CPU: Neural Processing Unit @ 3.2 GHz ............ OK', delay: 300, type: 'ok' },
-  { text: 'RAM: 16384 MB DDR5 ................................ OK', delay: 180, type: 'ok' },
-  { text: 'GPU: Holographic Render Engine v4.1 .............. OK', delay: 200, type: 'ok' },
+  { text: 'CPU: Neural Processing Unit @ 4.4 GHz ............ OK', delay: 300, type: 'ok' },
+  { text: 'RAM: 12844 MB DDR4 ................................ OK', delay: 180, type: 'ok' },
+  { text: 'GPU: Holographic Render Engine v4.16 .............. OK', delay: 200, type: 'ok' },
   { text: 'STORAGE: Quantum SSD 2TB ......................... OK', delay: 160, type: 'ok' },
   { text: 'NETWORK: Neural Link Adapter ..................... OK', delay: 220, type: 'ok' },
   { text: '', delay: 150, type: 'blank' },
