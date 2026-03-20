@@ -14,3 +14,8 @@ export const CURSOR_BLINK_DURATION_MS = 1100
 export const DESKTOP_PADDING = 8
 export const ICON_GRID_GAP = 16
 export const ICON_SIZE = 32
+
+/** Mobile */
+export const MOBILE_SHEET_ANIMATION_MS = 300
+export const MOBILE_STATUS_BAR_HEIGHT = 40
+export const MOBILE_BOTTOM_BAR_HEIGHT = 56
