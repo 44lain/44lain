@@ -11,7 +11,7 @@ export default function ProjectsWindow() {
       <div className="flex flex-col gap-3 text-[11px]" style={{ fontFamily: tokens.displayFont }}>
         <p className="font-bold" style={{ color: tokens.accentColor }}>releases</p>
         {releases.length === 0 ? (
-          <p className="text-white/30 italic">— no releases yet —</p>
+          <p className="text-white/30 italic">— nenhum release ainda —</p>
         ) : (
           releases.map((release) => (
             <div key={release.id} className="flex flex-col gap-1.5 border-b border-white/10 pb-3 last:border-0">
@@ -31,7 +31,7 @@ export default function ProjectsWindow() {
                   className="text-[10px] hover:underline"
                   style={{ color: tokens.secondaryColor }}
                 >
-                  open on Spotify ↗
+                  abrir no Spotify ↗
                 </a>
               )}
             </div>
@@ -43,7 +43,7 @@ export default function ProjectsWindow() {
 
   return (
     <div className="flex flex-col gap-3 text-[11px]" style={{ fontFamily: tokens.displayFont }}>
-      <p className="font-bold" style={{ color: tokens.accentColor }}>projects</p>
+      <p className="font-bold" style={{ color: tokens.accentColor }}>projetos</p>
       {projects.map((project) => (
         <div key={project.id} className="flex flex-col gap-1.5 border-b border-white/10 pb-3 last:border-0">
           <div className="flex items-baseline justify-between">

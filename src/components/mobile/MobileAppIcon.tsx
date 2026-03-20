@@ -21,7 +21,7 @@ export default function MobileAppIcon({ app, onOpen }: MobileAppIconProps) {
       className="flex flex-col items-center gap-2 rounded-2xl p-2 transition-opacity active:opacity-60"
       style={{ minWidth: 72 }}
       onClick={handleTap}
-      aria-label={`Open ${app.title}`}
+      aria-label={`Abrir ${app.title}`}
     >
       {/* Ícone com glassmorphism temável */}
       <div

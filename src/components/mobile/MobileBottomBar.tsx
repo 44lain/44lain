@@ -20,7 +20,7 @@ export default function MobileBottomBar({ canGoBack, onHome, onBack }: MobileBot
         borderTop: `1px solid rgba(255,255,255,0.08)`,
       }}
       role="toolbar"
-      aria-label="Navigation bar"
+      aria-label="Barra de navegação"
     >
       {/* Back button — aparece apenas quando há app aberto */}
       <button
@@ -36,7 +36,7 @@ export default function MobileBottomBar({ canGoBack, onHome, onBack }: MobileBot
         }
         onClick={onBack}
         disabled={!canGoBack}
-        aria-label="Go back"
+        aria-label="Voltar"
         tabIndex={canGoBack ? 0 : -1}
       >
         <span className="font-vt323 text-[20px] text-white/80" aria-hidden="true">
@@ -49,7 +49,7 @@ export default function MobileBottomBar({ canGoBack, onHome, onBack }: MobileBot
         className="flex h-10 items-center gap-2 rounded-full px-6 font-tahoma text-[12px] font-bold text-white shadow-btn-xp transition-opacity active:opacity-80"
         style={{ background: tokens.startButtonGradient }}
         onClick={onHome}
-        aria-label="Go to home screen"
+        aria-label="Tela inicial"
       >
         {tokens.startLabel}
       </button>

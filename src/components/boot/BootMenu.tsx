@@ -67,17 +67,17 @@ export default function BootMenu({ onSelect }: BootMenuProps) {
     <div
       className="flex h-screen w-screen items-center justify-center bg-bios-bg font-vt323"
       role="listbox"
-      aria-label="Boot menu — select operating system"
+      aria-label="Menu de boot — selecionar sistema operacional"
     >
       <div className="w-full max-w-[560px] border border-bios-text/30">
         {/* Header */}
         <div className="bg-bios-blue px-4 py-2 text-center text-[14px] text-bios-white">
-          WIRED_OS Boot Manager
+          WIRED_OS Gerenciador de Boot
         </div>
 
         {/* Instruções */}
         <div className="border-b border-bios-text/20 px-4 py-3 text-[13px] text-bios-text">
-          Choose an operating system to start:
+          Escolha um sistema operacional para iniciar:
         </div>
 
         {/* Opções */}
@@ -115,7 +115,7 @@ export default function BootMenu({ onSelect }: BootMenuProps) {
 
         {/* Footer */}
         <div className="border-t border-bios-text/20 px-4 py-2 text-[12px] text-bios-text/60">
-          <span>Use ↑↓ to select, Enter to boot</span>
+          <span>Use ↑↓ para selecionar, Enter para iniciar</span>
           <span className="float-right">WIRED_OS v1.0</span>
         </div>
       </div>

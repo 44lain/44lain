@@ -33,7 +33,7 @@ export default function DesktopIcon({ emoji, label, selected, onClick, onDoubleC
       } : undefined}
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
-      aria-label={`Open ${label}`}
+      aria-label={`Abrir ${label}`}
       aria-pressed={selected}
     >
       <span

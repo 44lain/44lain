@@ -21,11 +21,11 @@ const BIOS_LINES: BiosLine[] = [
   { text: 'STORAGE: Quantum SSD 2TB ......................... OK', delay: 160, type: 'ok' },
   { text: 'NETWORK: Neural Link Adapter ..................... OK', delay: 220, type: 'ok' },
   { text: '', delay: 150, type: 'blank' },
-  { text: 'Initializing WIRED_OS kernel...', delay: 400, type: 'info' },
-  { text: 'Loading device drivers...', delay: 300, type: 'info' },
-  { text: 'Mounting virtual filesystem...', delay: 250, type: 'info' },
+  { text: 'Inicializando kernel WIRED_OS...', delay: 400, type: 'info' },
+  { text: 'Carregando drivers de dispositivo...', delay: 300, type: 'info' },
+  { text: 'Montando sistema de arquivos virtual...', delay: 250, type: 'info' },
   { text: '', delay: 100, type: 'blank' },
-  { text: 'System ready. Press any key to continue...', delay: 600, type: 'header' },
+  { text: 'Sistema pronto. Continuando em 2 segundos...', delay: 600, type: 'header' },
 ]
 
 export default function BiosPost({ onComplete }: BiosPostProps) {
@@ -57,21 +57,28 @@ export default function BiosPost({ onComplete }: BiosPostProps) {
     }
   }, [visibleLines])
 
-  // Aguarda qualquer tecla para completar
+  // Avança automaticamente após 2s ou imediatamente em qualquer interação
   useEffect(() => {
     if (!waitingForKey) return
 
+    const autoAdvance = setTimeout(() => {
+      onComplete()
+    }, 2000)
+
     function handleKeyDown() {
+      clearTimeout(autoAdvance)
       onComplete()
     }
 
     function handleClick() {
+      clearTimeout(autoAdvance)
       onComplete()
     }
 
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('click', handleClick)
     return () => {
+      clearTimeout(autoAdvance)
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('click', handleClick)
     }

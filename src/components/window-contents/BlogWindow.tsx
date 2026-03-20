@@ -14,7 +14,7 @@ export default function BlogWindow() {
       <p className="font-bold" style={{ color: tokens.accentColor }}>posts</p>
 
       {filtered.length === 0 ? (
-        <p className="text-white/30 italic">— no posts yet —</p>
+        <p className="text-white/30 italic">— nenhum post ainda —</p>
       ) : (
         filtered.map((post) => (
           <div key={post.id} className="flex flex-col gap-1.5 border-b border-white/10 pb-3 last:border-0">

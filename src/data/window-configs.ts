@@ -4,7 +4,7 @@ import type { WindowConfig } from '@/types/window.types'
 export const windowConfigs: Record<string, WindowConfig> = {
   about: {
     id: 'about',
-    title: 'About',
+    title: 'Sobre',
     icon: '👤',
     initialPosition: { x: 80, y: 60 },
     initialSize: { width: 480, height: 360 },
@@ -13,7 +13,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
   },
   projects: {
     id: 'projects',
-    title: 'Projects',
+    title: 'Projetos',
     icon: '📁',
     initialPosition: { x: 140, y: 90 },
     initialSize: { width: 560, height: 420 },
@@ -39,7 +39,7 @@ export const windowConfigs: Record<string, WindowConfig> = {
   },
   contact: {
     id: 'contact',
-    title: 'Contact',
+    title: 'Contato',
     icon: '✉️',
     initialPosition: { x: 220, y: 140 },
     initialSize: { width: 400, height: 340 },

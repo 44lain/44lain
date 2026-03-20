@@ -17,7 +17,7 @@ export default function MobileAppGrid({ apps, onAppOpen, dimmed }: MobileAppGrid
         pointerEvents: dimmed ? 'none' : 'auto',
       }}
       role="list"
-      aria-label="Applications"
+      aria-label="Aplicativos"
     >
       {apps.map((app) => (
         <div key={app.id} role="listitem">

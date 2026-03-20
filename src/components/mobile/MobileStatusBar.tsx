@@ -32,7 +32,7 @@ export default function MobileStatusBar({ appTitle }: MobileStatusBarProps) {
         borderBottom: `1px solid rgba(255,255,255,0.08)`,
       }}
       role="banner"
-      aria-label="Status bar"
+      aria-label="Barra de status"
     >
       {/* Nome do app ou sistema */}
       <span className="font-tahoma text-[11px] font-bold text-white/90 tracking-wide">

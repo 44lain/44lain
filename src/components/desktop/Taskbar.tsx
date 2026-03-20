@@ -27,7 +27,7 @@ export default function Taskbar() {
         background: tokens.taskbarGradient,
       }}
       role="toolbar"
-      aria-label="Taskbar"
+      aria-label="Barra de tarefas"
     >
       <StartButton />
 

@@ -3,7 +3,7 @@ import type { Theme, ThemeTokens } from '@/types/theme.types'
 const DEV_TOKENS: ThemeTokens = {
   theme: 'dev',
   titlebarGradient: 'linear-gradient(180deg, #4a90e2 0%, #1240a0 100%)',
-  taskbarGradient: 'linear-gradient(180deg, #2a6aba 0%, #1a4a9a 30%, #1240a0 70%, #0a2880 100%)',
+  taskbarGradient: 'linear-gradient(180deg, #1e4fc8 0%, #3a6eff 50%, #1c45b8 100%)',
   startButtonGradient: 'linear-gradient(180deg, #5aaa30 0%, #3a8a10 50%, #2a7000 100%)',
   accentColor: '#4a90e2',
   accentDimColor: '#1a5fb4',
@@ -12,7 +12,7 @@ const DEV_TOKENS: ThemeTokens = {
   titleDarkColor: '#0A246A',
   titleLightColor: '#4a90e2',
   displayFont: 'Tahoma, Verdana, sans-serif',
-  startLabel: '⊞ Start',
+  startLabel: '⊞ Iniciar',
 }
 
 const MUSIC_TOKENS: ThemeTokens = {
@@ -27,7 +27,7 @@ const MUSIC_TOKENS: ThemeTokens = {
   titleDarkColor: '#2d0a5a',
   titleLightColor: '#9a4ae2',
   displayFont: 'Electrolize, monospace',
-  startLabel: '♪ Start',
+  startLabel: '♪ Iniciar',
 }
 
 /** Mapeia tema → tokens visuais resolvidos */

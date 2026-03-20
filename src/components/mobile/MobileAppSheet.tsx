@@ -57,7 +57,7 @@ export default function MobileAppSheet({
             boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25)',
           }}
           onClick={onClose}
-          aria-label={`Close ${title}`}
+          aria-label={`Fechar ${title}`}
           autoFocus
         >
           ×

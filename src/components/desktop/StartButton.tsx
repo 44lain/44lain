@@ -13,7 +13,7 @@ export default function StartButton() {
     <button
       className="flex h-[26px] items-center gap-1.5 rounded-btn-start px-3 font-tahoma text-[11px] font-bold text-white shadow-btn-xp active:brightness-90"
       style={{ background: tokens.startButtonGradient }}
-      aria-label="Start menu"
+      aria-label="Menu Iniciar"
     >
       {tokens.startLabel}
     </button>
