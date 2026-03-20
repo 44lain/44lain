@@ -39,10 +39,17 @@ export default function Window({ windowState, children }: WindowProps) {
     enabled: !isMaximized,
   })
 
-  const { elementRef: resizeRef, handleResizeMouseDown } = useResizable({
+  const { elementRef: resizeRef, getResizeHandler } = useResizable({
     initialSize: size,
+    initialPosition: position,
     minSize: config?.minSize,
-    onResizeEnd: useCallback((s) => updateSize(id, s), [id, updateSize]),
+    onResizeEnd: useCallback(
+      (s, p) => {
+        updateSize(id, s)
+        updatePosition(id, p)
+      },
+      [id, updateSize, updatePosition],
+    ),
     enabled: !isMaximized,
   })
 
@@ -106,12 +113,20 @@ export default function Window({ windowState, children }: WindowProps) {
 
       <WindowBody>{children}</WindowBody>
 
-      {/* Resize handle */}
+      {/* Resize handles — 4 edges + 4 corners */}
       {!isMaximized && (
-        <div
-          className="absolute bottom-0 right-0 h-3 w-3 cursor-se-resize"
-          onMouseDown={handleResizeMouseDown}
-        />
+        <>
+          {/* Edges */}
+          <div className="absolute top-0 left-3 right-3 h-1 cursor-n-resize" onMouseDown={getResizeHandler('n')} />
+          <div className="absolute bottom-0 left-3 right-3 h-1 cursor-s-resize" onMouseDown={getResizeHandler('s')} />
+          <div className="absolute left-0 top-3 bottom-3 w-1 cursor-w-resize" onMouseDown={getResizeHandler('w')} />
+          <div className="absolute right-0 top-3 bottom-3 w-1 cursor-e-resize" onMouseDown={getResizeHandler('e')} />
+          {/* Corners */}
+          <div className="absolute top-0 left-0 h-3 w-3 cursor-nw-resize" onMouseDown={getResizeHandler('nw')} />
+          <div className="absolute top-0 right-0 h-3 w-3 cursor-ne-resize" onMouseDown={getResizeHandler('ne')} />
+          <div className="absolute bottom-0 left-0 h-3 w-3 cursor-sw-resize" onMouseDown={getResizeHandler('sw')} />
+          <div className="absolute bottom-0 right-0 h-3 w-3 cursor-se-resize" onMouseDown={getResizeHandler('se')} />
+        </>
       )}
     </div>
   )

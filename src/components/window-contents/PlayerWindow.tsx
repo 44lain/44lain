@@ -1,4 +1,39 @@
+'use client'
+
+import { useState } from 'react'
 import { useTheme } from '@/hooks/useTheme'
+
+interface Track {
+  readonly id: string
+  readonly title: string
+  readonly role: string
+  readonly feat: string
+  readonly embedSrc: string
+}
+
+const TRACKS: readonly Track[] = [
+  {
+    id: 'na-noite',
+    title: 'Virgulas - Na Noite',
+    role: 'prod. 44lain',
+    feat: '',
+    embedSrc: 'https://open.spotify.com/embed/track/4Jd0hXovtgdpWtBrboRxUJ?utm_source=generator',
+  },
+  {
+    id: 'questoes',
+    title: '44lain - questões',
+    role: 'feat.',
+    feat: 'lavd667',
+    embedSrc: 'https://open.spotify.com/embed/album/0vKjaUpvskNJVnl2v5iiEQ?utm_source=generator',
+  },
+  {
+    id: 'suite-44',
+    title: '44lain - suite 44',
+    role: 'feat.',
+    feat: 'TWELVE',
+    embedSrc: 'https://open.spotify.com/embed/track/4ZB8SqjqNXHI5hwQ9h9KcV?utm_source=generator',
+  },
+]
 
 /** Barras do equalizador animadas via CSS puro */
 function EqualizerBars() {
@@ -31,32 +66,59 @@ function EqualizerBars() {
 }
 
 export default function PlayerWindow() {
-  const { theme, tokens } = useTheme()
+  const { tokens } = useTheme()
+  const [activeId, setActiveId] = useState<string>(TRACKS[0]!.id)
 
-  // TODO: substituir pela URL de embed real do Spotify (playlist ou artista)
-  const spotifyEmbedUrl = theme === 'music'
-    ? 'https://open.spotify.com/embed/artist/44lain?utm_source=generator&theme=0'
-    : 'https://open.spotify.com/embed/artist/44lain?utm_source=generator&theme=0'
+  const activeTrack = TRACKS.find((t) => t.id === activeId) ?? TRACKS[0]!
 
   return (
-    <div className="flex flex-col gap-3 h-full text-[11px]" style={{ fontFamily: tokens.displayFont }}>
+    <div className="flex flex-col gap-2 h-full text-[11px]" style={{ fontFamily: tokens.displayFont }}>
 
-      {/* Cabeçalho com equalizador */}
+      {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <span className="font-bold" style={{ color: tokens.accentColor }}>now playing</span>
         <EqualizerBars />
       </div>
 
+      {/* Tracklist */}
+      <div className="flex flex-col gap-px">
+        {TRACKS.map((track) => {
+          const isActive = track.id === activeId
+          return (
+            <button
+              key={track.id}
+              onClick={() => setActiveId(track.id)}
+              className="flex items-baseline gap-2 px-2 py-1.5 rounded-sm text-left transition-colors"
+              style={isActive ? {
+                background: `${tokens.accentColor}25`,
+                borderLeft: `2px solid ${tokens.accentColor}`,
+              } : {
+                borderLeft: '2px solid transparent',
+              }}
+            >
+              <span className={isActive ? 'font-bold text-white/90' : 'text-white/50'}>
+                {track.title}
+              </span>
+              <span className="text-[9px] text-white/30">
+                {track.role} {track.feat}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
       {/* Spotify Embed */}
-      <div className="flex-1 overflow-hidden rounded-sm" style={{ minHeight: 280 }}>
+      <div className="flex-1 overflow-hidden rounded-sm" style={{ minHeight: 232 }}>
         <iframe
-          src={spotifyEmbedUrl}
+          key={activeTrack.embedSrc}
+          src={activeTrack.embedSrc}
           width="100%"
           height="100%"
+          allowFullScreen
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
-          title="Spotify Player"
-          style={{ border: 'none', display: 'block', minHeight: 280 }}
+          title={activeTrack.title}
+          style={{ border: 'none', display: 'block', minHeight: 232 }}
         />
       </div>
 

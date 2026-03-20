@@ -22,7 +22,7 @@ This repository **is** my portfolio — an interactive OS simulation running in 
 |---|---|---|
 | **mode** | full-stack workstation | DAW / digital studio |
 | **palette** | XP Luna blue | Y2K lilac |
-| **tools** | Next.js · TypeScript · Node · PostgreSQL | Ableton · synthesis · sound design |
+| **tools** | Next.js · TypeScript · Node · PostgreSQL | FL Studio · synthesis · sound design |
 | **tone** | precise, technical | evocative, abstract |
 
 <br/>

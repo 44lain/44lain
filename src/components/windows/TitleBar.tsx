@@ -50,8 +50,11 @@ export default function TitleBar({
         </span>
       </div>
 
-      {/* Botões de controle */}
-      <div className="flex items-center gap-[2px]">
+      {/* Botões de controle — stopPropagation evita iniciar drag ao clicar */}
+      <div
+        className="flex items-center gap-[2px]"
+        onPointerDown={(e) => e.stopPropagation()}
+      >
         <TitlebarButton variant="minimize" onClick={onMinimize} />
         <TitlebarButton variant="maximize" onClick={onMaximize} />
         <TitlebarButton variant="close" onClick={onClose} />

@@ -17,6 +17,12 @@ export interface BootMenuProps {
   readonly onSelect: (theme: Theme) => void
 }
 
+/** Props do componente BiosLoading */
+export interface BiosLoadingProps {
+  readonly theme: Theme
+  readonly onComplete: () => void
+}
+
 /** Props do componente BootScreen */
 export interface BootScreenProps {
   readonly onBootComplete: (theme: Theme) => void

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTheme } from '@/hooks/useTheme'
+import XpButton from '@/components/ui/XpButton'
 
 interface FormState {
   name: string
@@ -111,18 +112,12 @@ export default function ContactWindow() {
         onChange={(val) => setForm((s) => ({ ...s, message: val }))}
       />
 
-      <button
+      <XpButton
         type="submit"
         disabled={!form.name || !form.email || !form.message}
-        className="self-start px-4 py-1 text-[11px] rounded-btn shadow-btn-xp transition-opacity disabled:opacity-30"
-        style={{
-          background: tokens.startButtonGradient,
-          color: '#fff',
-          fontFamily: tokens.displayFont,
-        }}
       >
         send
-      </button>
+      </XpButton>
 
     </form>
   )
