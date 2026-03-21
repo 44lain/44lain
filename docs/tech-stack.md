@@ -2,9 +2,123 @@
 
 ## Visão Geral
 
-| Categoria | Tecnologia | Versão alvo |
+| Categoria | Tecnologia | Versão |
 |---|---|---|
-| Framework | Next.js (App Router) | 14.x |
+| Framework | Next.js (App Router) | **16.2** |
+| Linguagem | TypeScript | 5.x (strict) |
+| Estilização | Tailwind CSS | 3.x |
+| Estado global | Zustand + Immer | **5.x** |
+| Íicones | PNGs WinXP (local) | — |
+| Wallpapers | `.webp` (DEV) / `.webm` (MUSIC) | — |
+| Player | Spotify Embed API | — |
+| Áudio | Web Audio API (`new Audio(...)`) | — |
+| Lint | ESLint **9** + eslint-config-next | obrigatório |
+| Deploy | Vercel | — |
+
+---
+
+## Core Framework: Next.js 16 (App Router)
+
+**Justificativa:**
+- App Router com SSG nativo para conteúdo estático
+- `next/font` para Electrolize, VT323, Share Tech Mono
+- `next/image` para ícones WinXP com lazy loading
+- `dynamic()` imports para lazy loading dos window-contents
+- Deploy trivial na Vercel
+
+**Configuração relevante (`next.config.mjs`):**
+```js
+const nextConfig = {
+  allowedDevOrigins: ['10.0.0.100'], // acesso via IP de rede
+  async headers() {
+    return [{ source: '/(.*)', headers: [{ key: 'X-Frame-Options', value: 'SAMEORIGIN' }] }]
+  },
+  images: {
+    remotePatterns: [{ protocol: 'https', hostname: 'i.scdn.co' }]
+  },
+}
+```
+
+> **Nota:** `images.domains` foi deprecado no Next.js 16. Usar `remotePatterns`.
+> **Nota:** ESLint 9 é obrigatório com `eslint-config-next@16`. ESLint 8 quebra no build da Vercel.
+
+---
+
+## Estado: Zustand 5 + Immer
+
+4 stores:
+- `themeStore` — tema ativo: `'dev' | 'music'`
+- `bootStore` — fase do boot (discriminated union)
+- `windowStore` — estado de todas as janelas
+- `notificationStore` — `hasMsnNotification: boolean`
+
+---
+
+## TypeScript 5 (strict)
+
+Configurações obrigatórias em `tsconfig.json`:
+```json
+{
+  "strict": true,
+  "noUncheckedIndexedAccess": true,
+  "exactOptionalPropertyTypes": true,
+  "noImplicitReturns": true
+}
+```
+
+**Armadilhas do `exactOptionalPropertyTypes`:**
+- Props opcionais precisam de `| undefined` explícito no hook
+- Para passar props opcionais com valor dinâmico, usar spread condicional:
+  ```tsx
+  {...(src ? { iconSrc: src } : {})}
+  ```
+
+---
+
+## Wallpapers
+
+| Tema | Arquivo | Formato |
+|------|---------|--------|
+| DEV | `public/bg-winxp.webp` | Imagem estática via `background-image` CSS |
+| MUSIC | `public/bg-snake.webm` | Vídeo `<video autoPlay muted loop>` |
+
+---
+
+## Ícones WinXP
+
+- Fonte: pasta `public/icons/Windows XP Icons/` (não versionada, remover após uso)
+- Mapeados para `public/icons/dev/` e `public/icons/music/`
+- Cada app tem: `about.png`, `projects.png`, `player.png`, `blog.png`, `contact.png`
+- Renderizados via `next/image` em `DesktopIcon.tsx`
+- Fallback: emoji UTF-8 quando `iconSrc` não disponivel
+
+---
+
+## Áudio
+
+```ts
+// Web Audio API — sempre com catch para autoplay policy
+const audio = new Audio('/sounds/winxp-startup.mp3')
+audio.play().catch(() => undefined)
+```
+
+| Arquivo | Quando toca |
+|---------|-------------|
+| `winxp-startup.mp3` | Boot completo |
+| `msn-message.wav` | MsnPopup monta |
+
+---
+
+## Tecnologias futuras (não implementadas)
+
+- **Unicorn.studio** — wallpapers animados (embed planejado)
+- **21.st.dev** — componentes utilitarios (`npx shadcn@latest add`)
+- **@next/mdx** — blog com MDX
+- **Resend** — formulário de contato funcional
+- **Vercel Analytics**
+- **next-intl** — i18n pt/en
+- **Vitest** + Testing Library
+
 | Linguagem | TypeScript | 5.x (strict) |
 | Estilização | Tailwind CSS | 3.x |
 | Estado global | Zustand | 4.x |

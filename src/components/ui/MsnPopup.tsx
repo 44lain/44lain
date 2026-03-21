@@ -21,12 +21,12 @@ export default function MsnPopup({ onClose }: MsnPopupProps) {
     audio.play().catch(() => undefined)
   }, [])
 
-  // Auto-dismiss após 8s → deixa notificação na taskbar
+  // Auto-dismiss após 6s → deixa notificação na taskbar
   useEffect(() => {
     const timer = setTimeout(() => {
       setHasMsnNotification(true)
       onClose()
-    }, 8000)
+    }, 6000)
     return () => clearTimeout(timer)
   }, [onClose, setHasMsnNotification])
 

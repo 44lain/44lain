@@ -346,6 +346,96 @@ function closeWindow(id: string) {
 
 ---
 
+## Padrões de Interação (Pointer Events)
+
+### Drag vs Click: use flag `hasMoved` com limiar de pixels
+
+Nunca distinguir drag de click por `onDoubleClick`. Usar Pointer Events com flag:
+
+```ts
+// DesktopIconGrid.tsx — padrão estabelecido na sessão 5
+const dragging = useRef<{
+  id: string
+  startX: number
+  startY: number
+  initX: number
+  initY: number
+  hasMoved: boolean
+} | null>(null)
+
+function handlePointerDown(e: React.PointerEvent, id: string) {
+  e.currentTarget.setPointerCapture(e.pointerId)
+  dragging.current = {
+    id, startX: e.clientX, startY: e.clientY,
+    initX: positions[id].x, initY: positions[id].y,
+    hasMoved: false,
+  }
+}
+
+function handlePointerMove(e: React.PointerEvent) {
+  if (!dragging.current) return
+  const dx = e.clientX - dragging.current.startX
+  const dy = e.clientY - dragging.current.startY
+  if (!dragging.current.hasMoved && Math.hypot(dx, dy) < 3) return
+  dragging.current.hasMoved = true
+  // ... atualiza posição via DOM ou state
+}
+
+function handlePointerUp(e: React.PointerEvent) {
+  if (!dragging.current) return
+  if (!dragging.current.hasMoved) {
+    handleIconClick(dragging.current.id) // só dispara click se não houve drag
+  }
+  dragging.current = null
+}
+```
+
+> Limiar recomendado: 3px via `Math.hypot(dx, dy)`.
+
+---
+
+## Comunicação Cross-Component: Custom Events
+
+Para comunicação entre componentes sem relação pai-filho (ex.: Taskbar → page.tsx), usar `CustomEvent` da Web API em vez de prop drilling ou stores adicionais:
+
+```ts
+// Dispatcher (ex.: Taskbar.tsx)
+window.dispatchEvent(new CustomEvent('msn:reopen'))
+
+// Listener (ex.: page.tsx)
+useEffect(() => {
+  const handler = () => setShowMsnPopup(true)
+  window.addEventListener('msn:reopen', handler)
+  return () => window.removeEventListener('msn:reopen', handler)
+}, [])
+```
+
+> Convenção de nome: `dominio:acao` em kebab-case (ex.: `msn:reopen`, `window:focus`).
+
+---
+
+## exactOptionalPropertyTypes: Props Opcionais
+
+Com `exactOptionalPropertyTypes: true`, não se pode passar `undefined` para uma prop opcional que não aceita `| undefined`. Usar spread condicional:
+
+```tsx
+// ❌ Quebra com exactOptionalPropertyTypes
+<DesktopIcon iconSrc={src ?? undefined} />
+
+// ✅ Correto — não inclui a key quando src é falsy
+<DesktopIcon {...(src ? { iconSrc: src } : {})} />
+```
+
+Ou na função que constrói os objetos:
+
+```ts
+// ✅ Não inclui a key no objeto quando valor é undefined
+const base = { id, label, emoji }
+return src ? { ...base, iconSrc: src } : base
+```
+
+---
+
 ## Git e Commits
 
 Siga o padrão **Conventional Commits**:

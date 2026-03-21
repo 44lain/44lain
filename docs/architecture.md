@@ -2,7 +2,172 @@
 
 ## Visão Geral
 
-O WIRED_OS é uma aplicação Next.js 14 com App Router. A maior parte do conteúdo é estático (SSG), com interatividade rica no client-side. A arquitetura prioriza:
+O WIRED_OS é uma aplicação Next.js 16 com App Router. A maior parte do conteúdo é estático (SSG), com interatividade rica no client-side. A arquitetura prioriza:
+
+1. **Separação clara entre UI e lógica de estado**
+2. **Componentes temáveis sem prop drilling**
+3. **Lazy loading de conteúdo de janelas**
+4. **Tipos TypeScript como documentação viva**
+
+---
+
+## Estrutura de Pastas
+
+```
+portfolio/
+├── public/
+│   ├── bg-winxp.webp           # Wallpaper DEV (imagem estática)
+│   ├── bg-snake.webm           # Wallpaper MUSIC (vídeo loop)
+│   ├── cursors/
+│   ├── fonts/
+│   ├── icons/
+│   │   ├── dev/    # about.png, projects.png, player.png, blog.png, contact.png
+│   │   └── music/  # idem, ícones distintos
+│   └── sounds/
+│       ├── winxp-startup.mp3
+│       └── msn-message.wav
+│
+└── src/
+    ├── app/
+    │   ├── layout.tsx         # Root layout: fontes, metadata
+    │   ├── page.tsx           # Entry: Boot → bifurca Mobile/Desktop + MsnPopup
+    │   └── globals.css        # Reset OS, scrollbar XP, msn-slide-up
+    │
+    ├── components/
+    │   ├── boot/
+    │   │   ├── BiosPost.tsx         # Fase 1: texto BIOS, auto-avança 2s
+    │   │   ├── BootMenu.tsx         # Fase 2: seleção DEV/MUSIC
+    │   │   ├── BiosLoading.tsx      # Fase 3: loading temável
+    │   │   ├── BootScreen.tsx       # Orquestrador
+    │   │   └── boot.types.ts
+    │   │
+    │   ├── desktop/
+    │   │   ├── Desktop.tsx            # Wallpaper por tema + icons + janelas + taskbar
+    │   │   ├── DesktopIcon.tsx        # next/image (PNG) ou emoji; clique progressivo
+    │   │   ├── DesktopIconGrid.tsx    # Posições absolutas + drag livre
+    │   │   ├── Taskbar.tsx            # StartButton + itens + system tray (MSN)
+    │   │   ├── StartButton.tsx
+    │   │   ├── TaskbarItem.tsx
+    │   │   ├── TaskbarClock.tsx
+    │   │   └── desktop.types.ts
+    │   │
+    │   ├── windows/
+    │   │   ├── Window.tsx
+    │   │   ├── TitleBar.tsx
+    │   │   ├── WindowBody.tsx
+    │   │   └── WindowManager.tsx
+    │   │
+    │   ├── window-contents/
+    │   │   ├── AboutWindow.tsx
+    │   │   ├── ProjectsWindow.tsx
+    │   │   ├── PlayerWindow.tsx
+    │   │   ├── BlogWindow.tsx
+    │   │   └── ContactWindow.tsx
+    │   │
+    │   ├── mobile/
+    │   │   ├── MobileDesktop.tsx        # Container + overlay de abas (app switcher)
+    │   │   ├── MobileStatusBar.tsx
+    │   │   ├── MobileAppIcon.tsx
+    │   │   ├── MobileAppGrid.tsx
+    │   │   ├── MobileAppSheet.tsx
+    │   │   ├── MobileAppSheetManager.tsx
+    │   │   ├── MobileBottomBar.tsx      # 3 botões: ◄ Voltar | Home | ⊞ Abas
+    │   │   └── mobile.types.ts
+    │   │
+    │   └── ui/
+    │       ├── TitlebarButton.tsx
+    │       ├── XpButton.tsx
+    │       ├── Badge.tsx
+    │       └── MsnPopup.tsx
+    │
+    ├── stores/
+    │   ├── themeStore.ts
+    │   ├── bootStore.ts
+    │   ├── windowStore.ts
+    │   └── notificationStore.ts     # hasMsnNotification: boolean
+    │
+    ├── hooks/
+    │   ├── useTheme.ts
+    │   ├── useWindowManager.ts
+    │   ├── useDraggable.ts
+    │   ├── useResizable.ts
+    │   ├── useFocusTrap.ts
+    │   ├── useIsMobile.ts
+    │   └── useMobileNavigation.ts
+    │
+    ├── data/
+    │   ├── window-configs.ts   # Config + devIcon + musicIcon por janela
+    │   ├── projects.ts
+    │   ├── releases.ts
+    │   └── blog-posts.ts
+    │
+    ├── types/
+    │   ├── theme.types.ts
+    │   ├── window.types.ts      # WindowConfig inclui devIcon?, musicIcon?
+    │   └── content.types.ts
+    │
+    ├── lib/
+    │   ├── constants.ts
+    │   ├── theme-tokens.ts
+    │   └── window-utils.ts
+    │
+    └── styles/
+        └── winxp-chrome.css
+```
+
+---
+
+## Padrões de Componentes
+
+### Padrão de Componente Temável
+
+```tsx
+// ✅ CORRETO
+import { useTheme } from '@/hooks/useTheme'
+const { tokens } = useTheme()
+// Nunca receber tema por prop
+```
+
+### Padrão de Conteúdo de Janela (Lazy)
+
+```tsx
+// windows/WindowManager.tsx
+import dynamic from 'next/dynamic'
+const windowContents = {
+  about:    dynamic(() => import('@/components/window-contents/AboutWindow')),
+  projects: dynamic(() => import('@/components/window-contents/ProjectsWindow')),
+  player:   dynamic(() => import('@/components/window-contents/PlayerWindow')),
+  blog:     dynamic(() => import('@/components/window-contents/BlogWindow')),
+  contact:  dynamic(() => import('@/components/window-contents/ContactWindow')),
+}
+```
+
+### Adicionando nova janela (checklist)
+1. Criar `window-contents/NovaWindow.tsx`
+2. Adicionar config em `data/window-configs.ts` com `devIcon` + `musicIcon`
+3. Registrar no lazy map em `WindowManager.tsx`
+4. Adicionar PNG em `public/icons/dev/` e `public/icons/music/`
+
+### Ativo de som
+```ts
+// Sempre verificar se está no browser antes de usar Audio
+const audio = new Audio('/sounds/arquivo.wav')
+audio.play().catch(() => undefined)
+```
+
+### Notificação MSN (padrão de evento)
+```ts
+// Taskbar/MobileBottomBar → re-abre popup em page.tsx
+window.dispatchEvent(new CustomEvent('msn:reopen'))
+
+// page.tsx
+useEffect(() => {
+  const handler = () => setShowMsnPopup(true)
+  window.addEventListener('msn:reopen', handler)
+  return () => window.removeEventListener('msn:reopen', handler)
+}, [])
+```
+ A maior parte do conteúdo é estático (SSG), com interatividade rica no client-side. A arquitetura prioriza:
 
 1. **Separação clara entre UI e lógica de estado**
 2. **Componentes temáveis sem prop drilling**
