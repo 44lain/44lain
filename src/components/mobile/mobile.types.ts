@@ -24,6 +24,8 @@ export interface MobileBottomBarProps {
   readonly canGoBack: boolean
   readonly onHome: () => void
   readonly onBack: () => void
+  readonly openAppIds: readonly string[]
+  readonly onTabsToggle: () => void
 }
 
 export interface MobileAppSheetProps {

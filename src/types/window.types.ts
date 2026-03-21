@@ -35,6 +35,10 @@ export interface WindowConfig {
   readonly id: string
   readonly title: string
   readonly icon: string
+  /** Caminho do ícone PNG para o tema DEV (public/icons/dev/) */
+  readonly devIcon?: string
+  /** Caminho do ícone PNG para o tema MUSIC (public/icons/music/) */
+  readonly musicIcon?: string
   readonly initialPosition: Position
   readonly initialSize: Size
   readonly minSize: Size

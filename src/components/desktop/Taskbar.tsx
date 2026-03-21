@@ -1,7 +1,9 @@
 'use client'
 
+import { useCallback } from 'react'
 import { useTheme } from '@/hooks/useTheme'
 import { useWindowStore } from '@/stores/windowStore'
+import { useNotificationStore } from '@/stores/notificationStore'
 import { windowConfigs } from '@/data/window-configs'
 import { TASKBAR_HEIGHT } from '@/lib/constants'
 import StartButton from './StartButton'
@@ -10,14 +12,22 @@ import TaskbarItem from './TaskbarItem'
 
 /**
  * Barra de tarefas fixa no rodapé.
- * Contém: StartButton, itens de janelas abertas, relógio.
+ * Contém: StartButton, itens de janelas abertas, relógio, notificações.
  */
 export default function Taskbar() {
   const { tokens } = useTheme()
   const windows = useWindowStore((s) => s.windows)
   const focusWindow = useWindowStore((s) => s.focusWindow)
+  const hasMsnNotification = useNotificationStore((s) => s.hasMsnNotification)
+  const setHasMsnNotification = useNotificationStore((s) => s.setHasMsnNotification)
 
   const openWindows = Object.values(windows).filter((w) => w.isOpen)
+
+  const handleNotificationClick = useCallback(() => {
+    setHasMsnNotification(false)
+    // Dispara re-exibição do popup via evento custom (lido em page.tsx)
+    window.dispatchEvent(new CustomEvent('msn:reopen'))
+  }, [setHasMsnNotification])
 
   return (
     <div
@@ -52,8 +62,24 @@ export default function Taskbar() {
         })}
       </div>
 
-      {/* Relógio */}
-      <TaskbarClock />
+      {/* System tray */}
+      <div className="flex items-center gap-1 pr-1">
+        {hasMsnNotification && (
+          <button
+            onClick={handleNotificationClick}
+            className="flex h-[22px] w-[22px] items-center justify-center rounded text-[14px] transition-opacity hover:opacity-80 active:opacity-60"
+            style={{
+              background: `${tokens.accentDimColor}55`,
+              border: `1px solid ${tokens.accentColor}50`,
+            }}
+            title="Nova mensagem MSN"
+            aria-label="Nova mensagem MSN — clique para ver"
+          >
+            💬
+          </button>
+        )}
+        <TaskbarClock />
+      </div>
     </div>
   )
 }

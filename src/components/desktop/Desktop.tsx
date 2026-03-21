@@ -9,13 +9,19 @@ import DesktopIconGrid from './DesktopIconGrid'
 import WindowManager from '@/components/windows/WindowManager'
 import type { DesktopIconConfig } from './desktop.types'
 
-/** Ícones visíveis no desktop, mapeados às janelas */
-const DESKTOP_ICONS: DesktopIconConfig[] = Object.values(windowConfigs).map((config) => ({
-  id: config.id,
-  label: config.title,
-  emoji: config.icon,
-  windowId: config.id,
-}))
+/** Ícones visíveis no desktop, mapeados às janelas — calculados no render para usar tokens */
+function buildDesktopIcons(theme: 'dev' | 'music'): DesktopIconConfig[] {
+  return Object.values(windowConfigs).map((config) => {
+    const src = theme === 'dev' ? config.devIcon : config.musicIcon
+    const base = {
+      id: config.id,
+      label: config.title,
+      emoji: config.icon,
+      windowId: config.id,
+    }
+    return src ? { ...base, iconSrc: src } : base
+  })
+}
 
 /**
  * Container principal do desktop.
@@ -32,15 +38,22 @@ export default function Desktop() {
     [openWindow]
   )
 
+  const bgImage = tokens.theme === 'dev' ? '/bg-winxp.webp' : '/bg-snake.webm'
+  const desktopIcons = buildDesktopIcons(tokens.theme)
+
   return (
     <div
       className="relative h-screen w-screen overflow-hidden"
       style={{
-        background: `radial-gradient(ellipse at 30% 50%, ${tokens.accentDimColor}22 0%, ${tokens.taskbarColor}11 50%, #0a0a0f 100%)`,
+        backgroundImage: `url('${bgImage}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
+
       {/* Grid de ícones */}
-      <DesktopIconGrid icons={DESKTOP_ICONS} onIconOpen={handleIconOpen} />
+      <DesktopIconGrid icons={desktopIcons} onIconOpen={handleIconOpen} />
 
       {/* Janelas gerenciadas */}
       <WindowManager />

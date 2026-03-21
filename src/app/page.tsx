@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { useThemeStore } from '@/stores/themeStore'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import BootScreen from '@/components/boot/BootScreen'
@@ -32,6 +32,13 @@ export default function Home() {
     },
     [setTheme]
   )
+
+  // Re-exibir popup quando a taskbar/bottombar clicar na notificação
+  useEffect(() => {
+    const handler = () => setShowMsnPopup(true)
+    window.addEventListener('msn:reopen', handler)
+    return () => window.removeEventListener('msn:reopen', handler)
+  }, [])
 
   if (!booted) {
     return <BootScreen onBootComplete={handleBootComplete} />

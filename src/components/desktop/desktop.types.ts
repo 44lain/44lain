@@ -3,16 +3,19 @@ export interface DesktopIconConfig {
   readonly id: string
   readonly label: string
   readonly emoji: string
+  /** Caminho de imagem PNG (sobrepõe emoji quando presente) */
+  readonly iconSrc?: string
   readonly windowId: string
 }
 
 /** Props do componente DesktopIcon */
 export interface DesktopIconProps {
   readonly emoji: string
+  readonly iconSrc?: string
   readonly label: string
   readonly selected: boolean
   readonly onClick: (e: React.MouseEvent) => void
-  readonly onDoubleClick: () => void
+  readonly onPointerDown?: (e: React.PointerEvent) => void
 }
 
 /** Props do componente DesktopIconGrid */

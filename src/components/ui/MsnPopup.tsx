@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useCallback } from 'react'
+import { useNotificationStore } from '@/stores/notificationStore'
 
 interface MsnPopupProps {
   readonly onClose: () => void
@@ -9,16 +10,28 @@ interface MsnPopupProps {
 /**
  * Pop-up de boas-vindas estilo MSN Messenger (Windows XP era).
  * Aparece ao iniciar qualquer OS, reproduz o som característico do MSN.
- * Posicionado no canto inferior direito, anima com slide-up.
+ * Auto-dismiss após 4 segundos → ativa notificação na taskbar.
  */
 export default function MsnPopup({ onClose }: MsnPopupProps) {
+  const setHasMsnNotification = useNotificationStore((s) => s.setHasMsnNotification)
+
   // Reproduz som do MSN ao montar
   useEffect(() => {
     const audio = new Audio('/sounds/msn-message.wav')
     audio.play().catch(() => undefined)
   }, [])
 
+  // Auto-dismiss após 8s → deixa notificação na taskbar
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasMsnNotification(true)
+      onClose()
+    }, 8000)
+    return () => clearTimeout(timer)
+  }, [onClose, setHasMsnNotification])
+
   const handleClose = useCallback(() => {
+    // Fechar manualmente não deixa notificação
     onClose()
   }, [onClose])
 
