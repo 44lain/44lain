@@ -7,7 +7,7 @@
  Atualmente trabalho com landing pages, aplicativos e pentest. Estudo Next.js e React Native, desenvolvendo projetos próprios — desde apps até bots em Python.
 </p>
 
-[![nominate](https://img.shields.io/badge/Star-Nominate%20@44lain-FF0000.svg?logo=github&labelColor=181717&longCache=true&style=for-the-badge)](https://stars.github.com/nominate)
+[![nominate](https://img.shields.io/badge/Star-Nominate%20@44lain-FF251C.svg?logo=github&labelColor=181717&longCache=true&style=for-the-badge)](https://stars.github.com/nominate)
 
 
 ## Sobre mim
@@ -38,13 +38,13 @@
 
 <p align="center">
 
-[![E-mail](https://img.shields.io/badge/-Email-FF0000?style=for-the-badge&logo=Gmail&logoColor=000000&color:FFF)](mailto:sen4.contato@pm.me)
+[![E-mail](https://img.shields.io/badge/-Email-FF251C?style=for-the-badge&logo=Gmail&logoColor=000000&color:FFF)](mailto:sen4.contato@pm.me)
 
-[![Instagram](https://img.shields.io/badge/-Instagram-FF0000?style=for-the-badge&logo=instagram&logoColor=000000&color:FFF)](https://www.instagram.com/44sen4)
+[![Instagram](https://img.shields.io/badge/-Instagram-FF251C?style=for-the-badge&logo=instagram&logoColor=000000&color:FFF)](https://www.instagram.com/44sen4)
 </p>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sushinectar/sushinectar/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/sushinectar/sushinectar/output/pacman-contribution-graph.svg">
-  <img src="https://raw.githubusercontent.com/sushinectar/sushinectar/output/pacman-contribution-graph.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/44lain/44lain/output/pacman-contribution-graph-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/44lain/44lain/output/pacman-contribution-graph.svg">
+  <img src="https://raw.githubusercontent.com/44lain/44lain/output/pacman-contribution-graph.svg">
 </picture>
