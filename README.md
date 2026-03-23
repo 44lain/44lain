@@ -1,9 +1,9 @@
 <h1 align="center">
- oi, sou o lain :P
+ Oi, me chamo Lain!
 </h1>
 
 <p align="center">
- desenvolvedor Full Stack há ~3 anos, apaixonado por interfaces bem pensadas, apps modernos e projetos criativos.  
+ Sou desenvolvedor Full Stack há ~3 anos, apaixonado por interfaces bem pensadas, apps modernos e projetos criativos.  
  Atualmente trabalho com landing pages, aplicativos e pentest. Estudo Next.js e React Native, desenvolvendo projetos próprios — desde apps até bots em Python.
 </p>
 
