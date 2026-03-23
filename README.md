@@ -1,63 +1,50 @@
-```
-WIRED_OS v4.4 — initializing...
-> hardware check ........... OK
-> dual-boot detected ........ DEV / MUSIC
-> user identified ........... 44lain
-> loading profile ........... ██████████ 100%
-```
+<h1 align="center">
+ 👋 Olá, eu sou o Luciano Rodrigues (AKA sen4)
+</h1>
 
-<br/>
+<p align="center">
+ Sou desenvolvedor Full Stack há ~3 anos, apaixonado por interfaces bem pensadas, apps modernos e projetos criativos.  
+ Atualmente trabalho com landing pages, aplicativos e pentest. Estudo Next.js e React Native, desenvolvendo projetos próprios — desde apps até bots em Python.
+</p>
 
-## `whoami`
+[![nominate](https://img.shields.io/badge/Star-Nominate%20@sushinectar-ffdd00.svg?logo=github&labelColor=181717&longCache=true&style=for-the-badge)](https://stars.github.com/nominate)
 
-Full-stack developer and music producer. I build things that shouldn't exist and make sounds that don't have a name yet. The intersection is where I live.
 
-This repository **is** my portfolio — an interactive OS simulation running in the browser. Boot it, choose a side, open the windows.
+## 🚀 Sobre mim
 
-<br/>
+- 🎓 Formado em Análise e Desenvolvimento de Sistemas pela UNIP  
+- 💻 Full Stack com foco em Next.js, Tailwind e JS
+- 📱 Apps com React Native + Expo  
+- 🧠 Obsidian como “segundo cérebro”  
+- 🧪 Entusiasta em cybersegurança e Linux
 
-## `dual-boot`
 
-| | DEV | MUSIC |
-|---|---|---|
-| **mode** | full-stack workstation | DAW / digital studio |
-| **palette** | XP Luna blue | Y2K lilac |
-| **tools** | Next.js · TypeScript · Node · PostgreSQL | FL Studio · synthesis · sound design |
-| **tone** | precise, technical | evocative, abstract |
+## 🛠️ Stack principal
 
-<br/>
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" width="36"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" width="36"/>
+</p>
 
-## `stack`
+## 📲 Contato
 
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+<p align="center">
 
-<br/>
+[![E-mail](https://img.shields.io/badge/-Email-ffdd00?style=for-the-badge&logo=Gmail&logoColor=000000&color:FFF)](mailto:sen4.contato@pm.me)
 
-## `architecture`
+[![Instagram](https://img.shields.io/badge/-Instagram-ffdd00?style=for-the-badge&logo=instagram&logoColor=000000&color:FFF)](https://www.instagram.com/44sen4)
+</p>
 
-```
-src/
-├── components/
-│   ├── boot/             # BIOS POST → dual-boot menu
-│   ├── desktop/          # icons, taskbar, wallpaper
-│   ├── windows/          # draggable / resizable window system
-│   └── window-contents/  # about · projects · player · blog · contact
-├── stores/               # Zustand (windows, theme, boot)
-├── hooks/                # useDraggable · useResizable · useTheme · useFocusTrap
-└── data/                 # projects · releases · blog posts
-```
-
-built with **Next.js 16** · **TypeScript strict** · **Zustand + Immer** · deployed on **Vercel**
-
-<br/>
-
-```
-; session terminated
-; see you on the other side of the boot screen
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/sushinectar/sushinectar/output/pacman-contribution-graph-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/sushinectar/sushinectar/output/pacman-contribution-graph.svg">
+  <img src="https://raw.githubusercontent.com/sushinectar/sushinectar/output/pacman-contribution-graph.svg">
+</picture>
